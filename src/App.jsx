@@ -1,4 +1,4 @@
-import { useCallback, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 function App() {
   const [length, setLength] = useState(8);
@@ -22,6 +22,10 @@ function App() {
 
   }, [numberAllowed, charAllowed, length]);
 
+  useEffect(() => {
+    passwordGenerator();
+  }, [length, numberAllowed, charAllowed, passwordGenerator]);
+
   return <div className='bg-black h-screen w-full py-8'>
     <div className='w-full max-w-lg mx-auto shadow-md rounded-lg px-4 py-3 text-orange-500 bg-gray-700'>
       <h1 className='text-white text-center mb-3'>Password Generator</h1>
@@ -32,7 +36,7 @@ function App() {
           className='outline-none w-full py-1 px-3'
           placeholder='password'
           readOnly/>
-        <button className='outline-none bg-orange-500 text-white px-3 py-1 flex flex-col justify-center' onClick={passwordGenerator}>
+        <button className='outline-none bg-orange-500 text-white px-3 py-1 flex flex-col justify-center'>
           copy
         </button>
       </div>
