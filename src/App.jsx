@@ -5,6 +5,13 @@ function App() {
   const [numberAllowed, setNumberAllowed] = useState(true);
   const [charAllowed, setCharAllowed] = useState(true);
   const [password, setPassword] = useState("");
+  const passwordRef = useRef();
+
+  function copyPasswordToClipboard(){
+    passwordRef.current?.select();
+    passwordRef.current?.setSelectionRange(0,3);
+    window.navigator.clipboard.writeText(password);
+  }
 
   const passwordGenerator = useCallback(() => {
     let str = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
@@ -35,8 +42,11 @@ function App() {
           value={password}
           className='outline-none w-full py-1 px-3'
           placeholder='password'
+          ref={passwordRef}
           readOnly/>
-        <button className='outline-none bg-orange-500 text-white px-3 py-1 flex flex-col justify-center'>
+        <button
+          onClick={copyPasswordToClipboard}
+          className='outline-none bg-orange-500 text-white px-3 py-1 flex flex-col justify-center'>
           copy
         </button>
       </div>
